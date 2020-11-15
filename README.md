@@ -2,7 +2,7 @@
 
 ## Description
 
-This application is intended to organize a person's daily work life with simple to use features within the browser.
+This application is intended to show the weather forecast of the cities the user has input into the search bar.
 
 ## Table of Contents
 
@@ -18,20 +18,19 @@ This application is intended to organize a person's daily work life with simple 
 
 ## Features
 
-- [x] Has the current day displayed at the top of the calendar.
-- [x] Has time blocks for standard business hours.
-- [x] Each time block indicates whether it's the past, present or future.
-- [x] Can edit each time block to according to what the user wants as the event.
-- [x] Can save your event into the local storage.
-- [x] The event will persist even when the user refreshes the page.
-- [x] Will have a button that clears out your schedule.
-- [] Disable buttons after it passes the current time.
+- [] User can search for the city's weather they desire.
+- [] User can see curretn adn future conditions for that city.
+- [] User can see the city's name, the date, an icon that shows the wether condition, the temperature, the humidity, the wind speed and the UV index.
+- [] User can see color indication if conditions are favorable, moderate, or severe.
+- [] User can see future weather conditions, a 5 day forcast of the city
+- [] User search history is saved and can be access again.
+- [] User can refresh the page and see the last city they search for.
 
 
 ## Links
 
-* Project Repo: [Repository](https://github.com/jeishu/work-day-scheduler)
-* GitHub Page: [Website](https://jeishu.github.io/work-day-scheduler/)
+* Project Repo: [Repository](https://github.com/jeishu/weather-dashboard)
+* GitHub Page: [Website](https://jeishu.github.io/weather-dashboard/)
 
 ## Screenshots
 
