@@ -24,39 +24,58 @@
 
 </head>
 <body>
-    <!-- == Navigation Bar == -->
-    <nav class="custom-nav">
-        <div class="container">
-          <p class="navbar-title">Weather Dashboard</p>
-        </div>
-    </nav>
+    <div id="bg-image">
 
-    <div class="container d-flex flex-direction-row">
-        <!-- == Search Bar == -->
-        <aside class="col-md-4 m-2">
-            <h4>Search for a city:</h4>
-            <div class="input-group custom-input">
-                <input type="text" class="form-control custom-search" placeholder="City Name" aria-label="City name">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
+        <!-- Information Container -->
+        <div class="custom-con container">
+
+            <!-- == Search Bar == -->
+            <section class="custom-sec1">
+                <h4>Search for a city:</h4>
+                <div class="input-group custom-input">
+
+                    <!-- Text Input -->
+                    <input type="text" id="search-city" class="form-control custom-search" placeholder="City Name" aria-label="City name">
+
+                    <!-- Search Button -->
+                    <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
+                    </div>
                 </div>
-              </div>
-              <div class="city-list custom-citylist">
-                <ul class="list-group">
-                    <!-- Currently need example for appending from JS, temporarily here for reference -->
-                    <button type="button" class="list-group-item list-group-item-action active">
-                        Cras justo odio
-                      </button>
-                      <button type="button" class="list-group-item list-group-item-action">Dapibus ac facilisis in</button>
-                      <button type="button" class="list-group-item list-group-item-action">Morbi leo risus</button>
-                      <button type="button" class="list-group-item list-group-item-action">Porta ac consectetur ac</button>
-                  </ul>
-              </div>
-        </aside>
-        <!-- == Weather Info == -->
-        <main class="col-md-8 m-2">
 
-        </main>
+                <!-- List of Cities searched -->
+                <div class="city-list custom-citylist">
+                    <ul class="list-group">
+
+                        <!-- Currently need example for appending from JS, temporarily here for reference -->
+                        <button type="button" class="list-group-item list-group-item-action">Austin</button>
+                        <button type="button" class="list-group-item list-group-item-action">Dallas</button>
+                        <button type="button" class="list-group-item list-group-item-action">New York</button>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Weather Info Section -->
+            <div class="custom-weather">
+                <section class="custom-sec2">
+                    <!-- == Current Weather Info == -->
+                    <h3>City Name</h3>
+                    <p>Temperature:</p>
+                    <p>Humidity:</p>
+                    <p>Wind Speed:</p>
+                    <p>UV Index:</p>
+                </section>
+
+                    <!-- == 5 Day Forecast == -->
+                <section class="custom-sec3">
+                    <h3>5-Day Forecast</h3>
+                    <div class="five-day-container">
+                        
+                    </div>
+                </section>
+            </div>
+           
+        </div>
     </div>
     <footer>
     </footer>
