@@ -25,6 +25,12 @@
 </head>
 <body>
     <div id="bg-image">
+        <div class="container">
+            <section class="current-time">
+                <p>Today is <span id="currentDay"></span></p>
+                
+            </section>
+        </div>
 
         <!-- Information Container -->
         <div class="custom-con container">
@@ -59,11 +65,14 @@
             <div class="custom-weather">
                 <section class="custom-sec2">
                     <!-- == Current Weather Info == -->
-                    <h3>City Name</h3>
-                    <p>Temperature:</p>
-                    <p>Humidity:</p>
-                    <p>Wind Speed:</p>
-                    <p>UV Index:</p>
+                    <div class="city-wrapper">
+                        <h3 class="city">City Name</h3>
+                    </div>
+                    
+                    <div class="temp">Temperature:</div>
+                    <div class="humidity">Humidity:</div>
+                    <div class="wind">Wind Speed:</div>
+                    <div class="uvi">UV Index:</div>
                 </section>
 
                     <!-- == 5 Day Forecast == -->
@@ -82,6 +91,8 @@
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <!-- JavaScript -->
     <script src="./assets/js/script.js"></script>
 </body>

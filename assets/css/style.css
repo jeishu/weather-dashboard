@@ -16,6 +16,9 @@ html {
     background-repeat: no-repeat;
     background-position: center;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     transition: .5s;
 }
 
@@ -25,9 +28,24 @@ html {
     flex-direction: row;
     width: 100%;
     height: auto;
-
-    padding: 20rem 0rem 20rem 0rem;
     transition: .5s;
+}
+.container {
+    padding: 0;
+}
+.current-time {
+    background-color: rgba(201, 201, 201, 0.5);
+    
+    height: auto;
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+.current-time p {
+    font-size: 2rem;
+    text-align: center;
+    width: 100%;
 }
 
 .custom-sec1 {
@@ -35,6 +53,7 @@ html {
     width: 30%;
     height: auto;
     transition: .5s;
+    margin: 1rem;
 }
 
 .custom-sec1 h4 {
@@ -55,19 +74,25 @@ html {
     width: 100%;
     transition: .5s;
 }
+.city-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
 .custom-sec2 {
-    width: 100%;
     height: auto;
     background-color: rgba(247, 247, 247, 0.7);
 
-    margin: 0 2rem 1rem;
     padding: 5rem;
+    margin: 1rem;
 }
-.custom-sec2 h3 {
-    padding-bottom: 2rem;
+.custom-sec2 .city {
     font-size: 3rem;
+    padding: 0%;
+    margin: 0%;
 }
-.custom-sec2 p {
+.custom-sec2 div {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
 
@@ -76,13 +101,11 @@ html {
 }
 /* 5Day forecast */
 .custom-sec3 {
-    width: 100%;
     height: auto;
 
     background-color: rgba(247, 247, 247, 0.7);
-    margin: 1rem 2rem 0;
     padding: 5rem;
-    
+    margin: 1rem;
     transition: .5s;
 }
 .custom-sec3 h3 {
