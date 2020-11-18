@@ -54,7 +54,7 @@ formEl.on("submit", function(event) {
             // city name and date
             customSec2El.append(`<h3 style="font-size: 3rem">${response.name} ${date}</h3>`)
             // Response to Weather, within the weather is an array, so index of 0 to call the icon number.
-            customSec2El.append(`<img src="http://openweathermap.org/img/wn/${response.weather[0].icon}.png">`);
+            customSec2El.append(`<img src="https://openweathermap.org/img/wn/${response.weather[0].icon}.png">`);
             // temperature
             customSec2El.append(`<div class="temp weather-val">Temperature: ${response.main.temp}°F</div>`);
             // humidity
