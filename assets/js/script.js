@@ -4,6 +4,7 @@ let currentDayEl = $("#currentDay");
 let formEl = $("form");
 
 let customSec2El = $(".custom-sec2");
+let customSec3El = $(".custom-sec3");
 
 // this is irrevelant now.. :(
 let cityEl = $(".city");
@@ -38,6 +39,7 @@ formEl.on("submit", function(event) {
         let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchCityEl}&units=imperial&appid=${apiKey}`;
         // empties anything inside and gets everything ready to append new searches
         customSec2El.empty();
+        customSec3El.empty();
 
         // gets information for the current weather
         $.ajax({
@@ -108,10 +110,17 @@ formEl.on("submit", function(event) {
                    let displayDate = moment().add(i,"d").format("L");
                    
                    // Creating the forecast card
-                   let forecastCard = $("<div>")
+                   customSec3El.append(`
+                    <div class="card card col-lg-2 col-md-4 col-sm-6 m-1 justify-content-center" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">${displayDate}</h5>
+                            <img src="https://openweathermap.org/img/wn/${response.list[i*8].weather[0].icon}.png">
+                            <p class="card-text">Temp: ${response.list[i*8].main.temp}°F</p>
+                            <p class="card-text">Humidity: ${response.list[i*8].main.humidity}%</p>
+                        </div>
+                    </div>
+                    `)
                 }     
-
-
 
             });
                 
