@@ -35,7 +35,7 @@ formEl.on("submit", function(event) {
     }
     else{
         console.log(searchCityEl);
-        let queryURL = `http://api.openweathermap.org/data/2.5/weather?q=${searchCityEl}&units=imperial&appid=${apiKey}`;
+        let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchCityEl}&units=imperial&appid=${apiKey}`;
         // empties anything inside and gets everything ready to append new searches
         customSec2El.empty();
 
@@ -63,7 +63,7 @@ formEl.on("submit", function(event) {
             customSec2El.append(`<div class="uvi weather-val">Wind Speed: ${response.wind.speed} MPH</div>`);
             
             // used to grab the longitude and latitude for the city for the UV Index
-            let uviQueryURL = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${response.coord.lat}&lon=${response.coord.lon}`;
+            let uviQueryURL = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${response.coord.lat}&lon=${response.coord.lon}`;
 
             // Checking for coordinates
             console.log(response.coord.lat);
@@ -95,7 +95,7 @@ formEl.on("submit", function(event) {
             });
             
             // grabbing the 5 day forecast from the searched city
-            let forecastQueryURL = `http://api.openweathermap.org/data/2.5/forecast?q=${searchCityEl}&appid=${apiKey}&units=imperial`;
+            let forecastQueryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${searchCityEl}&appid=${apiKey}&units=imperial`;
 
             // grabing info with AJAX
             $.ajax({
