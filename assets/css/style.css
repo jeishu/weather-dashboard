@@ -33,20 +33,6 @@ html {
 .container {
     padding: 0;
 }
-.current-time {
-    background-color: rgba(201, 201, 201, 0.5);
-    
-    height: auto;
-    margin: 1rem;
-    padding: 1rem;
-    display: flex;
-    flex-direction: row;
-}
-.current-time p {
-    font-size: 2rem;
-    text-align: center;
-    width: 100%;
-}
 
 .custom-sec1 {
     background: rgba(201, 201, 201, 0.5);
@@ -64,6 +50,15 @@ html {
 .custom-input {
     width: auto;
     margin: 2rem; 
+    display: flex;
+    flex-direction: row;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 .custom-citylist{
     margin: 2rem;
@@ -79,6 +74,12 @@ html {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+}
+.form-control-lg {
+    width: 100%;
+    border: none;
+    padding: 2rem 5rem 2rem 2rem;
+    text-align: start;
 }
 .custom-sec2 {
     height: auto;
@@ -110,4 +111,38 @@ html {
 }
 .custom-sec3 h3 {
     font-size: 3rem;
+}
+.weather-val {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* UV INDEX Color */
+.low {
+    background-color: green;
+    transition: .5s;
+    border-radius: 1.5rem;
+    width: fit-content;
+    
+}
+.low-mid {
+    background-color: yellow;
+    transition: .5s;
+    border-radius: 1.5rem;
+    width: fit-content;
+    
+}
+.mid-high {
+    background-color: orange;
+    transition: .5s;
+    border-radius: 1.5rem;
+    width: fit-content;
+    
+}
+.high {
+    background-color: red;
+    transition: .5s;
+    border-radius: 1.5rem;
+    width: fit-content;
+    
 }

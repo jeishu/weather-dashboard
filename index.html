@@ -25,28 +25,23 @@
 </head>
 <body>
     <div id="bg-image">
-        <div class="container">
-            <section class="current-time">
-                <p>Today is <span id="currentDay"></span></p>
-                
-            </section>
-        </div>
 
         <!-- Information Container -->
         <div class="custom-con container">
 
             <!-- == Search Bar == -->
             <section class="custom-sec1">
-                <h4>Search for a city:</h4>
-                <div class="input-group custom-input">
+                <h4></h4>
+                <div class="custom-input">
 
                     <!-- Text Input -->
-                    <input type="text" id="search-city" class="form-control custom-search" placeholder="City Name" aria-label="City name">
-
-                    <!-- Search Button -->
-                    <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
-                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="searchedCity"><span style="font-size: 16px; font-weight:bold; color: rgb(29, 29, 29); width: 100%">Search for a city</span></label>
+                            <input type="text" class="form-control-lg custom-search" id="search-city" placeholder="CITY NAME">
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                    </form>
                 </div>
 
                 <!-- List of Cities searched -->
@@ -54,9 +49,9 @@
                     <ul class="list-group">
 
                         <!-- Currently need example for appending from JS, temporarily here for reference -->
-                        <button type="button" class="list-group-item list-group-item-action">Austin</button>
+                        <!-- <button type="button" class="list-group-item list-group-item-action">Austin</button>
                         <button type="button" class="list-group-item list-group-item-action">Dallas</button>
-                        <button type="button" class="list-group-item list-group-item-action">New York</button>
+                        <button type="button" class="list-group-item list-group-item-action">New York</button> -->
                     </ul>
                 </div>
             </section>
@@ -66,18 +61,17 @@
                 <section class="custom-sec2">
                     <!-- == Current Weather Info == -->
                     <div class="city-wrapper">
-                        <h3 class="city">City Name</h3>
+                        <h3 class="city">Search for your desired city's weather</h3>
                     </div>
-                    
-                    <div class="temp">Temperature:</div>
-                    <div class="humidity">Humidity:</div>
-                    <div class="wind">Wind Speed:</div>
-                    <div class="uvi">UV Index:</div>
+                    <div class="temp weather-val"></div>
+                    <div class="humidity weather-val"></div>
+                    <div class="wind weather-val"></div>
+                    <div class="uvi weather-val"></div>
                 </section>
 
-                    <!-- == 5 Day Forecast == -->
+                <!-- == 5 Day Forecast == -->
                 <section class="custom-sec3">
-                    <h3>5-Day Forecast</h3>
+                    <h3></h3>
                     <div class="five-day-container">
                         
                     </div>
