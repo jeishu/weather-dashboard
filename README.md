@@ -29,7 +29,6 @@ Main Features:
 Bonus Features:
 - [x] Added a clear button for the history
 
-
 ## Links
 
 * Project Repo: [Repository](https://github.com/jeishu/weather-dashboard)
@@ -39,7 +38,6 @@ Bonus Features:
 
 ![Nothing Here](./assets/images/giffy.gif)
 
-
 ## Language
 
 * JavaScript
@@ -48,7 +46,6 @@ Bonus Features:
 * [jQuery](https://jquery.com/)
 * [Moment.js](https://momentjs.com/)
 * [Bootstrap](https://getbootstrap.com/)
-
 
 ## Code-Example
 

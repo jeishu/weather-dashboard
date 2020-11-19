@@ -1,21 +1,8 @@
 // DOM Elements
 let currentDayEl = $("#currentDay");
-
 let formEl = $("form");
-
 let customSec2El = $(".custom-sec2");
 let customSec3El = $(".custom-sec3");
-
-// this is irrevelant now.. :(
-let cityEl = $(".city");
-let cityWrapperEl = $(".city-wrapper");
-let tempEl = $(".temp");
-let humidityEl = $(".humidity");
-let windEl = $(".wind");
-let uviEl = $(".uvi");
-
-let fiveDayEl = $("five-day-container");
-
 let listGroupEl = $(".list-group");
 
 // Global Variables
@@ -39,13 +26,8 @@ function renderInfo() {
         // Pushes the value into the historyArr
         historyArr.push(searchCityEl);
 
-        // Saving the user searches into an array
-        // localStorage.setItem("historyArray", JSON.stringify(historyArr));
-
         // Saving the user searches, just one search
         localStorage.setItem("historySearch", JSON.stringify(searchCityEl));
-        
-        // console.log(localStorage.getItem("historySearch", searchCityEl));
 
         let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchCityEl}&units=imperial&appid=${apiKey}`;
         // empties anything inside and gets everything ready to append new searches
@@ -116,11 +98,11 @@ function renderInfo() {
             .then(function (response){  
                for (let i = 0; i < 5; i++) {
                     // getting the date    
-                   let displayDate = moment().add(i + 1,"d").format("L");
+                    let displayDate = moment().add(i + 1,"d").format("L");
                    
-                   // Creating the forecast card
-                   // Multiplying i by 8 to get the next day rather than 3 hours
-                   customSec3El.append(`
+                    // Creating the forecast card
+                        // Multiplying i by 8 to get the next day rather than 3 hours
+                    customSec3El.append(`
                         <div class="card card col-lg-2 col-md-4 col-sm-6 m-1 justify-content-center" style="width: 18rem;">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                 <h5 class="card-title">${displayDate}</h5>
@@ -178,8 +160,6 @@ function historyAdd() {
     localStorage.setItem("historyArray", JSON.stringify(historyArr));
 }
 
-
-
 // when something the list item is clicked on, the listed item will render the AJAX functions and append the info
 $("li").on("click", function(event) {
     event.preventDefault();
@@ -205,7 +185,6 @@ $("li").on("click", function(event) {
     .then(function (response){
         
         // Moved from .text to .append because it easier to empty() and .append then to change text, also template literals are cool
-        // city name and date
         customSec2El.append(`
             <h3 style="font-size: 3rem">${response.name} (${date})</h3>
             <img src="https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png">
@@ -257,7 +236,7 @@ $("li").on("click", function(event) {
                 let displayDate = moment().add(i + 1,"d").format("L");
                 
                 // Creating the forecast card
-                // Multiplying i by 8 to get the next day rather than 3 hours
+                    // Multiplying i by 8 to get the next day rather than 3 hours
                 customSec3El.append(`
                     <div class="card card col-lg-2 col-md-4 col-sm-6 m-1 justify-content-center" style="width: 18rem;">
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
@@ -341,7 +320,7 @@ function recentHistory() {
                 let displayDate = moment().add(i + 1,"d").format("L");
                 
                 // Creating the forecast card
-                // Multiplying i by 8 to get the next day rather than 3 hours
+                    // Multiplying i by 8 to get the next day rather than 3 hours
                 customSec3El.append(`
                     <div class="card card col-lg-2 col-md-4 col-sm-6 m-1 justify-content-center" style="width: 18rem;">
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
