@@ -33,56 +33,43 @@
 
             <!-- == Search Bar == -->
             <section class="custom-sec1">
-                <h4></h4>
                 <div class="custom-input">
 
                     <!-- Text Input -->
                     <form>
                         <div class="form-group">
-                            <label for="searchedCity"><span style="font-size: 16px; font-weight:bold; color: rgb(29, 29, 29); width: 100%">Search for a city</span></label>
+                            <label for="searchedCity"><span style="font-size: 20px; font-weight:bold; color: rgb(0, 0, 0); width: 100%">Search for a city</span></label>
                             <input type="text" class="form-control-lg custom-search" id="search-city" placeholder="CITY NAME">
                         </div>
                         <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                        
                     </form>
+                    
                 </div>
-
+                
                 <!-- List of Cities searched -->
                 <div class="city-list custom-citylist">
-                    <ul class="list-group">
-
-                        <!-- Currently need example for appending from JS, temporarily here for reference -->
-                        <!-- <button type="button" class="list-group-item list-group-item-action">Austin</button>
-                        <button type="button" class="list-group-item list-group-item-action">Dallas</button>
-                        <button type="button" class="list-group-item list-group-item-action">New York</button> -->
-                    </ul>
+                    <h3 style="font-weight: bold;">Search History</h3>
+                    <ul class="list-group"></ul>
                 </div>
+                <button class="clearBtn">Clear History</button>
             </section>
             
             <!-- Weather Info Section -->
             <div class="custom-weather">
-                <section class="custom-sec2">
-                    <!-- == Current Weather Info == -->
-                    <div class="city-wrapper">
-                        <h3 class="city">Search for your desired city's weather</h3>
-                    </div>
-                    <div class="temp weather-val"></div>
-                    <div class="humidity weather-val"></div>
-                    <div class="wind weather-val"></div>
-                    <div class="uvi weather-val"></div>
-                </section> 
+                <section class="custom-sec2"></section> 
 
                 <!-- == 5 Day Forecast == -->
-                <section class="custom-sec3">
-                    <h3></h3>
-                    <div class="five-day-container">
-                    </div>
-                </section>
+                <section class="custom-sec3"></section>
             </div>
            
         </div>
     </div>
     <footer>
-    </footer>
+        <h4>
+          <span style="color:lightsteelblue">Jeremy Zhu</span> <span style="color:white">© 2020 </span></i>
+        </h4>
+      </footer>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

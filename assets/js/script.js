@@ -30,7 +30,7 @@ function renderInfo() {
     let searchCityEl = $("#search-city").val().trim().toUpperCase();
 
     // Checks for a value
-    if(!searchCityEl){
+    if(searchCityEl === ""){
         return;
     }
     else{
@@ -40,7 +40,7 @@ function renderInfo() {
         historyArr.push(searchCityEl);
 
         // Saving the user searches into an array
-        localStorage.setItem("historyArray", JSON.stringify(historyArr));
+        // localStorage.setItem("historyArray", JSON.stringify(historyArr));
 
         // Saving the user searches, just one search
         localStorage.setItem("historySearch", JSON.stringify(searchCityEl));
@@ -121,19 +121,20 @@ function renderInfo() {
                    // Creating the forecast card
                    // Multiplying i by 8 to get the next day rather than 3 hours
                    customSec3El.append(`
-                    <div class="card card col-lg-2 col-md-4 col-sm-6 m-1 justify-content-center" style="width: 18rem;">
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            <h5 class="card-title">${displayDate}</h5>
-                            <img style="width: 70%; height: auto" src="https://openweathermap.org/img/wn/${response.list[i*8].weather[0].icon}@2x.png">
-                            <p class="card-text">Temp: ${response.list[i*8].main.temp}°F</p>
-                            <p class="card-text">Humidity: ${response.list[i*8].main.humidity}%</p>
+                        <div class="card card col-lg-2 col-md-4 col-sm-6 m-1 justify-content-center" style="width: 18rem;">
+                            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                                <h5 class="card-title">${displayDate}</h5>
+                                <img style="width: 70%; height: auto" src="https://openweathermap.org/img/wn/${response.list[i*8].weather[0].icon}@2x.png">
+                                <p class="card-text">Temp: ${response.list[i*8].main.temp}°F</p>
+                                <p class="card-text">Humidity: ${response.list[i*8].main.humidity}%</p>
+                            </div>
                         </div>
-                    </div>
                     `)
                 }     
             });       
     });
-    
+    historyStored();
+    historyAdd();
     }
 }
 
@@ -141,8 +142,6 @@ function renderInfo() {
 formEl.on("submit", function(event) {
     event.preventDefault();
     renderInfo();
-    historyStored();
-    historyAdd();
     location.reload();
 });
 
@@ -160,7 +159,7 @@ function historyStored() {
         }
         for (let i = 0; i < value; i++) {
             historyArr.push(historyCities[i]);
-            $(".list-group").append(`<li data-city="${historyCities[i]}" class="list-group-item list-group-item-action" style="cursor:pointer;">${historyCities[i]}</li>`);
+            $(".list-group").append(`<li data-city="${historyCities[i]}" class="list-group-item list-group-item-action align-self-stretch" style="cursor:pointer; width:100%;">${historyCities[i]}</li>`);
         }
     }
 }
@@ -179,27 +178,7 @@ function historyAdd() {
     localStorage.setItem("historyArray", JSON.stringify(historyArr));
 }
 
-// variable for the local storage
-// let history = JSON.parse(localStorage.getItem("historyArray"));
-// function createList() {
-    
-//     for (let i = 0; i < history.length; i++) {
-//         $(".list-group").append(`<li data-city="${history[i]}" class="list-group-item list-group-item-action" style="cursor:pointer;">${history[i]}</li>`);
-//     }
-//     replacing the [" at the beginning of the array
-//     let remove1 = history.replace('["', '');
-//     // replacing the "] at the end of the array
-//     let remove2 = remove1.replace('"]', '');
-//     // splits the array into value by ","
-//     let splitString = remove2.split('","');
 
-//     // loops through the array to create the history buttons
-//     for (let i = 0; i < splitString.length; i++) {
-//     $(".list-group").append(`<li data-city="${splitString[i]}" class="list-group-item list-group-item-action" style="cursor:pointer;">${splitString[i]}</li>`);
-//     }
-
-// }
-// createList();
 
 // when something the list item is clicked on, the listed item will render the AJAX functions and append the info
 $("li").on("click", function(event) {
@@ -364,17 +343,26 @@ function recentHistory() {
                 // Creating the forecast card
                 // Multiplying i by 8 to get the next day rather than 3 hours
                 customSec3El.append(`
-                <div class="card card col-lg-2 col-md-4 col-sm-6 m-1 justify-content-center" style="width: 18rem;">
-                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                        <h5 class="card-title">${displayDate}</h5>
-                        <img style="width: 70%; height: auto" src="https://openweathermap.org/img/wn/${response.list[i*8].weather[0].icon}@2x.png">
-                        <p class="card-text">Temp: ${response.list[i*8].main.temp}°F</p>
-                        <p class="card-text">Humidity: ${response.list[i*8].main.humidity}%</p>
+                    <div class="card card col-lg-2 col-md-4 col-sm-6 m-1 justify-content-center" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <h5 class="card-title">${displayDate}</h5>
+                            <img style="width: 70%; height: auto" src="https://openweathermap.org/img/wn/${response.list[i*8].weather[0].icon}@2x.png">
+                            <p class="card-text">Temp: ${response.list[i*8].main.temp}°F</p>
+                            <p class="card-text">Humidity: ${response.list[i*8].main.humidity}%</p>
+                        </div>
                     </div>
-                </div>
                 `);
             }     
         });
     })
 }
+
 recentHistory();
+
+// clears the local storage and empties the list history
+$(".clearBtn").on("click", function(){
+    localStorage.clear("historyArray");
+    localStorage.clear("historySearch");
+    $(".list-group").empty();
+    location.reload();
+})

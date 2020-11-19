@@ -8,11 +8,11 @@ This application is intended to show the weather forecast of the cities the user
 
 * [Features](#Features)
 * [Links](#Links)
-* [Screenshots](#Screenshots)
+* [Demo](#Demo)
 * [Language](#Language)
 * [Code-Example](#Code-Example)
 * [Reference](#Reference)
-* [Tests/Issues/Notes](#Tests/Issues/Notes)
+* [Developer-Notes](#Developer-Notes)
 * [Contribute/Credits](#Contribute/Credits)
 * [License](#License)
 
@@ -24,7 +24,10 @@ This application is intended to show the weather forecast of the cities the user
 - [x] User can see color indication of the UV Index if conditions are favorable, moderate, or severe.
 - [x] User can see future weather conditions, a 5 day forcast of the city
 - [x] User search history is saved and can be access again.
-- [] User can refresh the page and see the last city they search for.
+- [x] User can refresh the page and see the last city they search for.
+
+Bonus
+- [x] Added a clear button for the history
 
 
 ## Links
@@ -32,11 +35,9 @@ This application is intended to show the weather forecast of the cities the user
 * Project Repo: [Repository](https://github.com/jeishu/weather-dashboard)
 * GitHub Page: [Website](https://jeishu.github.io/weather-dashboard/)
 
-## Screenshots
+## Demo
 
-Nothing here yet.
-
-![Nothing Here](./assets/images/testgif.gif)
+![Nothing Here](./assets/images/giffy.gif)
 
 
 ## Language
@@ -51,7 +52,20 @@ Nothing here yet.
 
 ## Code-Example
 
-* Nothing Here Yet.
+* Since I started using template literals from the last application, I decided to continue using it in this application
+    * I used template literals to append most of my content into the DOM. 
+```
+customSec3El.append(`
+    <div class="card card col-lg-2 col-md-4 col-sm-6 m-1 justify-content-center" style="width: 18rem;">
+        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+            <h5 class="card-title">${displayDate}</h5>
+            <img style="width: 70%; height: auto" src="https://openweathermap.org/img/wn/${response.list[i*8].weather[0].icon}@2x.png">
+            <p class="card-text">Temp: ${response.list[i*8].main.temp}°F</p>
+            <p class="card-text">Humidity: ${response.list[i*8].main.humidity}%</p>
+        </div>
+    </div>
+`)
+```
 
 ## Reference
 
@@ -70,13 +84,53 @@ These websites aid me in creating this README.
 > - [Akash Nimare](https://medium.com/@meakaakka/a-beginners-guide-to-writing-a-kickass-readme-7ac01da88ab3) || Based my README from his person.
 > - [Mark Down Guide](https://www.markdownguide.org/cheat-sheet/) || README Syntax
 
-## Tests/Issues/Notes
+## Developer-Notes
+> AJAX was a tough one since I had to do an AJAX inside an AJAX to get information from the AJAX for the AJAX.
+* I had to do a weather AJAX to get the longitude and latitude for the UV Index since queryURL for that doesn't ask for the city name.
+    * I had to grab the coordinates from the weather AJAX then plug those coordinates into the queryURL used for UV Index AJAX.
 
-* Nothing Here Yet.
+> I had problems with the local storage when trying to append the list in the Search History.
+* Initially, when appending the list-items, I would get --> ["Austin 
+    * So my TA help me fix that problem since my text was originally a string.
+    * So he told me to utilized the split() and replace() since when I append the template literal it would append literally everything.
+    * The first code was my first attempt on getting the history to append with some janky way to work around strings. 
+
+```
+// variable for the local storage
+let history = JSON.parse(localStorage.getItem("historyArray"));
+// replacing the [" at the beginning of the array
+let remove1 = history.replace('["', '');
+// replacing the "] at the end of the array
+let remove2 = remove1.replace('"]', '');
+// splits the array into value by ","
+let splitString = remove2.split('","');
+
+// loops through the array to create the history buttons
+for (let i = 0; i < splitString.length; i++) {
+    $(".list-group").append(`<li data-city="${splitString[i]}" class="list-group-item list-group-item-action" style="cursor:pointer;">${splitString[i]}</li>`);
+}
+```
+* The second code was my second attempt, but made it more polished and shortened.
+    * I thought to myself since the information is grab is coming in as a string, shouldn't I convert it with JSON.parse rather than the first attempt?
+    * So I did.
+```
+// variable for the local storage
+let history = JSON.parse(localStorage.getItem("historyArray"));
+function createList() {
+    
+    for (let i = 0; i < history.length; i++) {
+        $(".list-group").append(`<li data-city="${history[i]}" class="list-group-item list-group-item-action" style="cursor:pointer;">${history[i]}</li>`);
+    }
+}
+createList();
+```
 
 ## Contribute/Credits
 
-* Nothing Here Yet.
+* Jared
+    * He suggest that using to local storage keys. One for the array of history searches and one for the most recent history.
+* My TA, Sean
+    * Help me understand more about local storage. I was definitely struggling on this one for that.
 
 ## License
 
