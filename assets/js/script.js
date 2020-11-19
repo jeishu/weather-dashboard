@@ -39,11 +39,12 @@ function renderInfo() {
         // Pushes the value into the historyArr
         historyArr.push(searchCityEl);
 
-        // Saving the user searches
-        localStorage.setItem("historySearch", JSON.stringify(historyArr));
+        // Saving the user searches into an array
+        localStorage.setItem("historyArray", JSON.stringify(historyArr));
 
-        // two localstorage: one for recent, one for array storage.
-
+        // Saving the user searches, just one search
+        localStorage.setItem("historySearch", JSON.stringify(searchCityEl));
+        
         // console.log(localStorage.getItem("historySearch", searchCityEl));
 
         let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchCityEl}&units=imperial&appid=${apiKey}`;
@@ -63,16 +64,13 @@ function renderInfo() {
             // console.log(response);
             
             // Moved from .text to .append because it easier to empty() and .append then to change text, also template literals are cool
-            // city name and date
-            customSec2El.append(`<h3 style="font-size: 3rem">${response.name} (${date})</h3>`);
-            // Response to Weather, within the weather is an array, so index of 0 to call the icon number.
-            customSec2El.append(`<img src="https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png">`);
-            // temperature
-            customSec2El.append(`<div class="temp weather-val">Temperature: ${response.main.temp}°F</div>`);
-            // humidity
-            customSec2El.append(`<div class="wind weather-val">Humidity: ${response.main.humidity}%</div>`);
-            // wind speed
-            customSec2El.append(`<div class="uvi weather-val">Wind Speed: ${response.wind.speed} MPH</div>`);
+            customSec2El.append(`
+                <h3 style="font-size: 3rem">${response.name} (${date})</h3>
+                <img src="https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png">
+                <div class="temp weather-val">Temperature: ${response.main.temp}°F</div>
+                <div class="wind weather-val">Humidity: ${response.main.humidity}%</div>
+                <div class="uvi weather-val">Wind Speed: ${response.wind.speed} MPH</div>
+            `);
             
             // used to grab the longitude and latitude for the city for the UV Index
             let uviQueryURL = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${response.coord.lat}&lon=${response.coord.lon}`;
@@ -108,7 +106,8 @@ function renderInfo() {
             
             // grabbing the 5 day forecast from the searched city
             let forecastQueryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${searchCityEl}&appid=${apiKey}&units=imperial`;
-            console.log(forecastQueryURL);
+            // console.log(forecastQueryURL);
+            
             // grabing info with AJAX
             $.ajax({
                 url: forecastQueryURL,
@@ -136,41 +135,85 @@ function renderInfo() {
     });
     
     }
-    
 }
 
-// Calling the AJAX functions
+// Calling the functions when the form is submitted
 formEl.on("submit", function(event) {
     event.preventDefault();
     renderInfo();
+    historyStored();
+    historyAdd();
+    location.reload();
 });
 
-function createList() {
-    // variable for the local storage
-    let history = localStorage.getItem("historySearch");
-    // replacing the [" at the beginning of the array
-    let remove1 = history.replace('["', '');
-    // replacing the "] at the end of the array
-    let remove2 = remove1.replace('"]', '');
-    // splits the array into value by ","
-    let splitString = remove2.split('","');
-
-    // loops through the array to create the history buttons
-    for (let i = 0; i < splitString.length; i++) {
-    $(".list-group").append(`<li data-city="${splitString[i]}" class="list-group-item list-group-item-action" style="cursor:pointer;">${splitString[i]}</li>`);
+// Stores and creates the history list that can only go up to 5
+function historyStored() {
+    let historyCities = JSON.parse(localStorage.getItem("historyArray"));
+    historyArr = [];
+    $(".list-group").empty();
+    if(historyCities) {
+        if(historyCities.length < 5){
+            var value = historyCities.length;
+        }
+        else {
+            var value = 5
+        }
+        for (let i = 0; i < value; i++) {
+            historyArr.push(historyCities[i]);
+            $(".list-group").append(`<li data-city="${historyCities[i]}" class="list-group-item list-group-item-action" style="cursor:pointer;">${historyCities[i]}</li>`);
+        }
     }
 }
 
-createList();
+// calling this function to ensure everything is rendered on the list
+historyStored();
 
+// when a new value is added, it removes the last value search and adds a new value to the list
+function historyAdd() {
+    historyStored();
+
+    let newSearch = $("#search-city").val().trim().toUpperCase();
+
+    // unshift() adds value to the top of the array
+    historyArr.unshift(newSearch);
+    localStorage.setItem("historyArray", JSON.stringify(historyArr));
+}
+
+// variable for the local storage
+// let history = JSON.parse(localStorage.getItem("historyArray"));
+// function createList() {
+    
+//     for (let i = 0; i < history.length; i++) {
+//         $(".list-group").append(`<li data-city="${history[i]}" class="list-group-item list-group-item-action" style="cursor:pointer;">${history[i]}</li>`);
+//     }
+//     replacing the [" at the beginning of the array
+//     let remove1 = history.replace('["', '');
+//     // replacing the "] at the end of the array
+//     let remove2 = remove1.replace('"]', '');
+//     // splits the array into value by ","
+//     let splitString = remove2.split('","');
+
+//     // loops through the array to create the history buttons
+//     for (let i = 0; i < splitString.length; i++) {
+//     $(".list-group").append(`<li data-city="${splitString[i]}" class="list-group-item list-group-item-action" style="cursor:pointer;">${splitString[i]}</li>`);
+//     }
+
+// }
+// createList();
+
+// when something the list item is clicked on, the listed item will render the AJAX functions and append the info
 $("li").on("click", function(event) {
     event.preventDefault();
     
-    // Gets the value from the input text
+    // Gets the value from the data attribute rather than value because the value didn't work for me lol
     let listGroup = $(this).attr("data-city");
+    
+    // checks to see what is being grabbed
     console.log(listGroup);
 
+    // checks the value from the data attribute then pushes that value as a city when the button is clicked
     let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${listGroup}&units=imperial&appid=${apiKey}`;
+    
     // empties anything inside and gets everything ready to append new searches
     customSec2El.empty();
     customSec3El.empty();
@@ -181,30 +224,20 @@ $("li").on("click", function(event) {
         method: "GET"
     })
     .then(function (response){
-
-        // checking for values
-        // console.log(queryURL);
-        // console.log(response);
         
         // Moved from .text to .append because it easier to empty() and .append then to change text, also template literals are cool
         // city name and date
-        customSec2El.append(`<h3 style="font-size: 3rem">${response.name} (${date})</h3>`);
-        // Response to Weather, within the weather is an array, so index of 0 to call the icon number.
-        customSec2El.append(`<img src="https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png">`);
-        // temperature
-        customSec2El.append(`<div class="temp weather-val">Temperature: ${response.main.temp}°F</div>`);
-        // humidity
-        customSec2El.append(`<div class="wind weather-val">Humidity: ${response.main.humidity}%</div>`);
-        // wind speed
-        customSec2El.append(`<div class="uvi weather-val">Wind Speed: ${response.wind.speed} MPH</div>`);
+        customSec2El.append(`
+            <h3 style="font-size: 3rem">${response.name} (${date})</h3>
+            <img src="https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png">
+            <div class="temp weather-val">Temperature: ${response.main.temp}°F</div>
+            <div class="wind weather-val">Humidity: ${response.main.humidity}%</div>
+            <div class="uvi weather-val">Wind Speed: ${response.wind.speed} MPH</div>
+        `);
         
         // used to grab the longitude and latitude for the city for the UV Index
         let uviQueryURL = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${response.coord.lat}&lon=${response.coord.lon}`;
 
-        // Checking for coordinates
-        // console.log(response.coord.lat);
-        // console.log(response.coord.lon);
-        
         // Getting UV INDEX
         $.ajax({
         url: uviQueryURL,
@@ -232,20 +265,105 @@ $("li").on("click", function(event) {
         
         // grabbing the 5 day forecast from the searched city
         let forecastQueryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${listGroup}&appid=${apiKey}&units=imperial`;
-        console.log(forecastQueryURL);
+        
         // grabing info with AJAX
         $.ajax({
             url: forecastQueryURL,
             method: "GET"
         })
         .then(function (response){  
-        for (let i = 0; i < 5; i++) {
+
+            for (let i = 0; i < 5; i++) {
                 // getting the date    
-            let displayDate = moment().add(i + 1,"d").format("L");
+                let displayDate = moment().add(i + 1,"d").format("L");
+                
+                // Creating the forecast card
+                // Multiplying i by 8 to get the next day rather than 3 hours
+                customSec3El.append(`
+                    <div class="card card col-lg-2 col-md-4 col-sm-6 m-1 justify-content-center" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <h5 class="card-title">${displayDate}</h5>
+                            <img style="width: 70%; height: auto" src="https://openweathermap.org/img/wn/${response.list[i*8].weather[0].icon}@2x.png">
+                            <p class="card-text">Temp: ${response.list[i*8].main.temp}°F</p>
+                            <p class="card-text">Humidity: ${response.list[i*8].main.humidity}%</p>
+                        </div>
+                    </div>
+                `)
+            }     
+        });       
+     });
+})
+
+var recentStored = JSON.parse(localStorage.getItem("historySearch"));
+
+function recentHistory() {
+    
+    let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${recentStored}&units=imperial&appid=${apiKey}`;
+    
+    // empties anything inside and gets everything ready to append new searches
+    customSec2El.empty();
+    customSec3El.empty();
+
+    // gets information for the current weather
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })
+    .then(function (response){
+
+        // Moved from .text to .append because it easier to empty() and .append then to change text, also template literals are cool
+        customSec2El.append(`
+            <h3 style="font-size: 3rem">${response.name} (${date})</h3>
+            <img src="https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png">
+            <div class="temp weather-val">Temperature: ${response.main.temp}°F</div>
+            <div class="wind weather-val">Humidity: ${response.main.humidity}%</div>
+            <div class="uvi weather-val">Wind Speed: ${response.wind.speed} MPH</div>
+        `);
+        
+        // used to grab the longitude and latitude for the city for the UV Index
+        let uviQueryURL = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${response.coord.lat}&lon=${response.coord.lon}`;
+        
+        // Getting UV INDEX
+        $.ajax({
+        url: uviQueryURL,
+        method: "GET"
+        })
+        .then(function (response){  
             
-            // Creating the forecast card
-            // Multiplying i by 8 to get the next day rather than 3 hours
-            customSec3El.append(`
+            // if the UV index is under 2, it will be green
+            if (response.value < 2) {
+                customSec2El.append(`<div class="uvi weather-val low">UV Index: ${response.value}</div>`);
+            }
+            // if the UV index is between 2 and 5, it will be yellow
+            else if (response.value > 2 && response.value < 5){
+                customSec2El.append(`<div class="uvi weather-val low-mid">UV Index: ${response.value}</div>`);
+            }
+            // if the UV index is between 5 and 8, it will be orange
+            else if (response.value > 5 && response.value < 8) {
+                customSec2El.append(`<div class="uvi weather-val mid-high">UV Index: ${response.value}</div>`);
+            }
+            // if the UV index is over 8, it will be red
+            else {
+                customSec2El.append(`<div class="uvi weather-val high">UV Index: ${response.value}</div>`);
+            }
+        });
+        
+        // grabbing the 5 day forecast from the searched city
+        let forecastQueryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${recentStored}&appid=${apiKey}&units=imperial`;
+
+        // grabing info with AJAX
+        $.ajax({
+            url: forecastQueryURL,
+            method: "GET"
+        })
+        .then(function (response){  
+            for (let i = 0; i < 5; i++) {
+                // getting the date    
+                let displayDate = moment().add(i + 1,"d").format("L");
+                
+                // Creating the forecast card
+                // Multiplying i by 8 to get the next day rather than 3 hours
+                customSec3El.append(`
                 <div class="card card col-lg-2 col-md-4 col-sm-6 m-1 justify-content-center" style="width: 18rem;">
                     <div class="card-body d-flex flex-column justify-content-center align-items-center">
                         <h5 class="card-title">${displayDate}</h5>
@@ -254,8 +372,9 @@ $("li").on("click", function(event) {
                         <p class="card-text">Humidity: ${response.list[i*8].main.humidity}%</p>
                     </div>
                 </div>
-                `)
+                `);
             }     
-        });       
-     });
-})
+        });
+    })
+}
+recentHistory();

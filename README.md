@@ -19,11 +19,11 @@ This application is intended to show the weather forecast of the cities the user
 ## Features
 
 - [x] User can search for the city's weather they desire.
-- [] User can see current and future conditions for that city.
+- [x] User can see current and future conditions for that city.
 - [x] User can see the city's name, the date, an icon that shows the wether condition, the temperature, the humidity, the wind speed and the UV index.
 - [x] User can see color indication of the UV Index if conditions are favorable, moderate, or severe.
-- [] User can see future weather conditions, a 5 day forcast of the city
-- [] User search history is saved and can be access again.
+- [x] User can see future weather conditions, a 5 day forcast of the city
+- [x] User search history is saved and can be access again.
 - [] User can refresh the page and see the last city they search for.
 
 
