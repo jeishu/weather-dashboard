@@ -111,7 +111,7 @@ html {
 
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 .custom-sec3 h3 {
@@ -128,26 +128,22 @@ html {
     transition: .5s;
     border-radius: 1.5rem;
     width: fit-content;
-    
 }
 .low-mid {
     background-color: yellow;
     transition: .5s;
     border-radius: 1.5rem;
     width: fit-content;
-    
 }
 .mid-high {
     background-color: orange;
     transition: .5s;
     border-radius: 1.5rem;
-    width: fit-content;
-    
+    width: fit-content; 
 }
 .high {
     background-color: red;
     transition: .5s;
     border-radius: 1.5rem;
     width: fit-content;
-    
 }
